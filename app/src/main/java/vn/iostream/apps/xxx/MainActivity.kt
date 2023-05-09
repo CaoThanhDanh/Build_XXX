@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -26,6 +28,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import vn.iostream.apps.xxx.data.Message
+import vn.iostream.apps.xxx.data.conversationSample
 import vn.iostream.apps.xxx.ui.theme.XXXTheme
 
 class MainActivity : ComponentActivity() {
@@ -34,14 +38,13 @@ class MainActivity : ComponentActivity() {
         setContent {
             XXXTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
-                    MessageCard(Message("Android", "Jetpack Compose"))
+//                    MessageCard(Message("Android", "Jetpack Compose"))
+                    Conversation(conversationSample)
                 }
             }
         }
     }
 }
-
-data class Message(val author: String, val body: String)
 
 @Composable
 fun MessageCard(msg: Message) {
@@ -73,6 +76,15 @@ fun MessageCard(msg: Message) {
 
     }
 
+}
+
+@Composable
+fun Conversation(messages: List<Message>) {
+    LazyColumn {
+        items(messages) { message ->
+            MessageCard(message)
+        }
+    }
 }
 
 @Preview(name = "Light Mode")
